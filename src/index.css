@@ -19,23 +19,34 @@ h1{
   margin: auto;
 }
 .card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 20px auto;
   max-width: 300px;
   background: coral;
   box-shadow: 3px 2px 3px silver;
   transition: all 0.3s ease-in-out;
 }
+.cardContent{
+  height: 300px;
+}
+.biowrap{
+  color: whitesmoke;
+  margin: 15px;
+  text-align: justify;
+}
 .card:hover{
   transform: scale(1.03);
   box-shadow: 5px 5px 10px whitesmoke;
 }
 .textGroup{
-    padding: 10px 0;
-    text-align: center;
-    color: white;
+  padding: 10px 0;
+  text-align: center;
+  color: white;
 }
 .infoText{
-  margin: 20px;
+  margin: 20px 0;
   font-size: 20px;
   font-weight: 700;
 }
@@ -48,7 +59,7 @@ h1{
   justify-content: space-between;
 }
 .actionBtn{
-  width: 90%;
+  width: 90;
   margin: auto;
   color: #2c1203;
   font-size: 18px;

@@ -1,74 +1,65 @@
-import ProfileCard from "./components/profilecard";
-import { Component } from "react";
+import ProfileCard from './components/ProfileCard';
 
-class App extends Component {
-  constructor() {
-    super ();
-    this.handClick =this.handClick.bind(this);
-    this.state ={
-      writers:{
-        loading:false,
-        list:[]
-      }
-    };
-  }
-  handClick(){
-    this.setState({
-      writers:{
-        loading:true
+import React, {useState} from 'react'
 
-      }
-    });
-   setTimeout(async()=>{
-     let resp = await fetch("/writers.json");
-     let result = await resp.json();
+ function App() {
+const[writers,setWriters]=useState({
+  loading: false,
+  list:[]
+});
 
+const handleClick =()=>{
+  setWriters((previousState)=>({
+    ...previousState,
+    loading:true
+  }))
+setTimeout(async()=>{
+  let resp =await fetch("/writers.json");
+  let result =await resp.json();
 
-     this.setState({
-       writers:{
-       loading:false,
-       list: result
+  setWriters((previousState)=>({
+    ...previousState,
+    loading:false,
+    list:result
+  }));
+}, 2500)
 
-       }
-     });
-    }, 3500);
-  }
+}
 
 
-  render() {
-    const {
-      writers:{loading, list}
-    } = this.state;
-    if (loading) {
-      return (
-         <div>
-          <h1>writers Profile</h1>
-          <div className="container">
-         <div className="card action">
-         <p className="infoText">loading...</p>
+  if  (writers.loading){
+    return(
+      <div>
+      <h1>Writers Profile</h1>
+<div className='container'>
+<div className='card action'>
+<p className='infoText'>Loading...</p>
+
 </div>
 </div>
 </div>
-);      
-
+    );
   }
-return(
-  <div>
-  <h1>writers Profiles</h1>
-  <div className="container">
-  {list.length ===0 ? (
-    <div className="card action">
-    <p className="infoText">Oops... no writer profile found</p>
-    <button className="actionBtn" onClick={this.handle}>Get Writers</button>
-    </div>
-  ):(
-    list.map((writers) =>(
-      <ProfileCard key={writers.id} writer={writers}/>
-    ))
-  )}
-   </div>
-   </div>
-   );
-   }
-   }
+  return (
+      <div>
+      <h1>Writers Profile</h1>
+      <div className='container'>
+      
+    {writers.list.length === 0 ? (
+ <div className='card action'>
+ <p className='infoText'>Oops... no writer profile found</p>
+<button className='actionBtn' onClick={handleClick}>Get Writers</button>
+      </div>
+    ):(
+writers.list.map((writer) =>(
+  <ProfileCard key={writer.id} writer={writer}/>
+))
+    )}
+      </div>
+      
+      
+        </div>
+    );
+  }
+
 export default App;
